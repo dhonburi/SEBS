@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="SEBS.Core/SEBS.Core.csproj" />
+  <Project Path="SEBS.Tests/SEBS.Tests.csproj" />
+</Solution>
