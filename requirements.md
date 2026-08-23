@@ -7,7 +7,7 @@
 | FR1 | Student can search/browse equipment by category and see current availability |
 | FR2 | The system shall reject a booking where the due date is not strictly after the booking date, and shall accept any booking where the equipment is available and the due date is after the booking date |
 | FR3 | System must prevent booking equipment that is fully reserved or marked damaged |
-| FR4 | Student can cancel a booking while it is Pending or Active |
+| FR4 | Student can cancel a booking while it is Active |
 | FR5 | Staff can check in returned equipment, marking the booking Completed |
 | FR6 | Staff can check in equipment as damaged, which sets the booking to Completed and the equipment's damaged flag to true, regardless of the equipment's prior damaged state, so that the item is excluded from future bookings per FR3 until repaired |
 | FR7 | Staff can mark damaged equipment as repaired, returning it to available stock |

@@ -31,8 +31,8 @@ namespace SEBS.Core
 
         public void Cancel()
         {
-            if (Status != BookingStatus.Active && Status != BookingStatus.Pending)
-                throw new InvalidOperationException("Only active or pending bookings can be cancelled.");
+            if (Status != BookingStatus.Active)
+                throw new InvalidOperationException("Only active bookings can be cancelled.");
 
             Equipment.Release();
             Status = BookingStatus.Cancelled;

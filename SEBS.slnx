@@ -3,5 +3,6 @@
     <File Path="requirements.md" />
   </Folder>
   <Project Path="SEBS.Core/SEBS.Core.csproj" />
+  <Project Path="SEBS.Services/SEBS.Services.csproj" Id="0189c26c-3b74-47b0-8ae7-8fce421b7593" />
   <Project Path="SEBS.Tests/SEBS.Tests.csproj" />
 </Solution>
