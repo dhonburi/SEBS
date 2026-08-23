@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/docs/">
+    <File Path="requirements.md" />
+  </Folder>
   <Project Path="SEBS.Core/SEBS.Core.csproj" />
   <Project Path="SEBS.Tests/SEBS.Tests.csproj" />
 </Solution>
