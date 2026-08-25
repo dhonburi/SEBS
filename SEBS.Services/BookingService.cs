@@ -22,23 +22,25 @@ namespace SEBS.Services
 
     public class BookingService
     {
+        // The fields below are used to simulate a data store for the purpose of this exercise. In a real-world application, these would be replaced with database access code.
         private readonly List<Equipment> _equipment = new List<Equipment>();
         private readonly List<Student> _students = new List<Student>();
         private readonly List<Booking> _bookings = new List<Booking>();
         private readonly List<StaffMember> _staff = new List<StaffMember>();
         private int _nextBookingNumber = 1;
 
+        // Setup methods to add initial data for testing purposes
         public void AddEquipment(Equipment equipment) => _equipment.Add(equipment);
         public void AddStudent(Student student) => _students.Add(student);
         public void AddStaffMember(StaffMember staff) => _staff.Add(staff);
 
-        // FR1
+        // FR1: Query methods to look up equipment and bookings
         public List<Equipment> GetAvailableEquipment() =>
             _equipment.Where(e => e.IsAvailable()).ToList();
 
         public List<Equipment> GetAllEquipment() => _equipment.ToList();
 
-        // FR2, FR3
+        // FR2, FR3: Create a booking if the equipment is available and the due date is after the booking date
         public ServiceResult CreateBooking(string studentId, string equipmentId, DateTime bookingDate, DateTime dueDate, out Booking? booking)
         {
             booking = null;
@@ -65,7 +67,7 @@ namespace SEBS.Services
             }
         }
 
-        // FR4
+        // FR4: Cancel a booking only if active
         public ServiceResult CancelBooking(string bookingId)
         {
             var booking = _bookings.FirstOrDefault(b => b.BookingId == bookingId);
@@ -83,7 +85,7 @@ namespace SEBS.Services
             }
         }
 
-        // FR5
+        // FR5: Check in a booking as completed, Only staff can perform this action
         public ServiceResult CheckIn(string bookingId, string staffId)
         {
             var booking = _bookings.FirstOrDefault(b => b.BookingId == bookingId);
@@ -105,7 +107,7 @@ namespace SEBS.Services
             }
         }
 
-        // FR6
+        // FR6: Check in a booking as completed with damage report, Only staff can perform this action
         public ServiceResult CheckInDamaged(string bookingId, string staffId)
         {
             var booking = _bookings.FirstOrDefault(b => b.BookingId == bookingId);
@@ -127,7 +129,7 @@ namespace SEBS.Services
             }
         }
 
-        // FR7
+        // FR7: Mark damaged equipment as repaired, Only staff can perform this action
         public ServiceResult MarkRepaired(string equipmentId, string staffId)
         {
             var equipment = _equipment.FirstOrDefault(e => e.EquipmentId == equipmentId);
@@ -142,7 +144,7 @@ namespace SEBS.Services
             return ServiceResult.Ok($"Equipment {equipmentId} marked as repaired.");
         }
 
-        // FR8
+        // FR8: Query methods to look up bookings by status and overdue
         public List<Booking> GetOverdueBookings(DateTime currentDate) =>
             _bookings.Where(b => b.IsOverdue(currentDate)).ToList();
 
