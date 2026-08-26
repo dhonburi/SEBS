@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SEBS.Core\SEBS.Core.csproj" />
+    <ProjectReference Include="..\SEBS.Services\SEBS.Services.csproj" />
   </ItemGroup>
 
   <ItemGroup>
