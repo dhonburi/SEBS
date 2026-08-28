@@ -22,10 +22,10 @@ namespace SEBS.App
             bookingService.AddEquipment(new Equipment("E004", "Table Tennis Ball", "Racket Sports", 5));
             bookingService.AddEquipment(new Equipment("E005", "Badminton Shuttlecock", "Racket Sports", 20));
             bookingService.AddEquipment(new Equipment("E006", "Badminton Racket", "Racket Sports", 6));
-            bookingService.AddStudent(new Student("S001", "Dhon Lao", "dhonl@aut.ac.nz"));
-            bookingService.AddStudent(new Student("S002", "Bela Calma", "belac@aut.ac.nz"));
-            bookingService.AddStudent(new Student("S003", "Hansith Perera", "hansithp@aut.ac.nz"));
-            bookingService.AddStaffMember(new StaffMember("ST01", "Coach Dylan"));
+            bookingService.AddStudent(new Student("23211534", "Dhon Lao", "dhonl@aut.ac.nz"));
+            bookingService.AddStudent(new Student("23211535", "Bela Calma", "belac@aut.ac.nz"));
+            bookingService.AddStudent(new Student("23211536", "Hansith Perera", "hansithp@aut.ac.nz"));
+            bookingService.AddStaffMember(new StaffMember("1", "Coach Dylan"));
 
             Application.Run(new MainForm(bookingService));
         }
