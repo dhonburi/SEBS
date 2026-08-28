@@ -1,6 +1,7 @@
 <Solution>
   <Folder Name="/docs/">
     <File Path="requirements.md" />
+    <File Path="traceabilityMatrix.md" />
   </Folder>
   <Project Path="SEBS.App/SEBS.App.csproj" Id="2e82d56b-e5bf-4243-868d-8838988ebb27" />
   <Project Path="SEBS.Core/SEBS.Core.csproj" />
