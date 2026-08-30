@@ -42,7 +42,7 @@ public class BookingCreationTest
         Assert.AreEqual(BookingStatus.Active, booking.Status);
         Assert.AreEqual(1, equipment.AvailableQuantity);
         Assert.HasCount(1, service.GetAllBookings());
-        Assert.HasCount(1, service.GetAllBookings());
+        
     }
 
     [TestMethod]
@@ -194,6 +194,7 @@ public class BookingCreationTest
 
         // Assert
         Assert.IsFalse(result.Success);
+        Assert.AreEqual("Equipment is not available for booking.", result.Message);
         Assert.IsNull(booking);
         Assert.AreEqual(1, equipment.AvailableQuantity);
         Assert.HasCount(0, service.GetAllBookings());
