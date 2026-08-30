@@ -9,7 +9,7 @@
 
 | ID | Priority | Test Case | Requirement | Given (Starting State) | When (Action) | Then (Expected Result) |
 |---|---|---|---|---|---|---|
-| TC03 | High | Valid booking creates an Active booking and reduces availability | FR2, NFR3 | Equipment is available and the due date is after the booking date | A student creates a booking | The booking is created with Active status and available quantity decreases by 1 |
+| TC03 | High | Valid booking creates an Active booking and reduces availability | FR2, NFR3 | Equipment is available and the due date is after the booking date | A student creates a booking | The booking is created with Active status, available quantity decreases by 1, and the booking is stored in the booking collection |
 | TC04 | High | Due date on or before the booking date is rejected | FR2 | A due date that is on or before the booking date | A student attempts to create a booking | The booking is rejected and available quantity is unchanged |
 | TC05 | Medium | Due date exactly 1 day after the booking date succeeds | FR2 | A due date exactly one day after the booking date | A student creates a booking | The booking succeeds (confirms the minimum valid gap is accepted) |
 | TC06 | High | Fully reserved equipment is rejected | FR3, NFR2 | Equipment has zero units available | A student attempts to book it | The booking is rejected and available quantity remains unchanged |
