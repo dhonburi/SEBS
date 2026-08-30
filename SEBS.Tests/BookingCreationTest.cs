@@ -41,6 +41,8 @@ public class BookingCreationTest
         Assert.IsNotNull(booking);
         Assert.AreEqual(BookingStatus.Active, booking.Status);
         Assert.AreEqual(1, equipment.AvailableQuantity);
+        Assert.HasCount(1, service.GetAllBookings());
+        Assert.HasCount(1, service.GetAllBookings());
     }
 
     [TestMethod]
