@@ -39,6 +39,8 @@
             dgvEquipment = new DataGridView();
             btnMarkRepaired = new Button();
             lblMarkRepairedStatus = new Label();
+            btnOverdueBookings = new Button();
+            btnManagerReport = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvBookings).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvEquipment).BeginInit();
             SuspendLayout();
@@ -147,11 +149,33 @@
             lblMarkRepairedStatus.Size = new Size(0, 20);
             lblMarkRepairedStatus.TabIndex = 9;
             // 
+            // btnOverdueBookings
+            // 
+            btnOverdueBookings.Location = new Point(12, 687);
+            btnOverdueBookings.Name = "btnOverdueBookings";
+            btnOverdueBookings.Size = new Size(205, 29);
+            btnOverdueBookings.TabIndex = 10;
+            btnOverdueBookings.Text = "View Overdue Bookings";
+            btnOverdueBookings.UseVisualStyleBackColor = true;
+            btnOverdueBookings.Click += btnOverdueBookings_Click;
+            // 
+            // btnManagerReport
+            // 
+            btnManagerReport.Location = new Point(226, 687);
+            btnManagerReport.Name = "btnManagerReport";
+            btnManagerReport.Size = new Size(205, 29);
+            btnManagerReport.TabIndex = 11;
+            btnManagerReport.Text = "Manager Report";
+            btnManagerReport.UseVisualStyleBackColor = true;
+            btnManagerReport.Click += btnManagerReport_Click;
+            // 
             // StaffForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(932, 703);
+            ClientSize = new Size(932, 731);
+            Controls.Add(btnManagerReport);
+            Controls.Add(btnOverdueBookings);
             Controls.Add(lblMarkRepairedStatus);
             Controls.Add(btnMarkRepaired);
             Controls.Add(dgvEquipment);
@@ -185,5 +209,7 @@
         private Button btnMarkRepaired;
         private Button button1;
         private Label lblMarkRepairedStatus;
+        private Button btnOverdueBookings;
+        private Button btnManagerReport;
     }
 }

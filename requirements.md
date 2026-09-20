@@ -12,7 +12,7 @@
 | FR6 | Staff can check in equipment as damaged, which sets the booking to Completed and the equipment's damaged flag to true, regardless of the equipment's prior damaged state, so that the item is excluded from future bookings per FR3 until repaired |
 | FR7 | Staff can mark damaged equipment as repaired, returning it to available stock |
 | FR8 | System can identify a booking as overdue if the current date is past the due date and the booking is still Active |
-| FR9 | Manager can generate a report, scoped to the current semester's active data, showing: total bookings per equipment item, count of currently overdue bookings, and count of items currently marked damaged — pending a reporting/query layer being added to the solution |
+| FR9 | Manager can generate a report showing: total bookings per equipment item, count of currently overdue bookings, and count of items currently marked damaged |
 
 ## Non-Functional Requirements
 
@@ -93,3 +93,9 @@
 | Accessibility | The system is replacing a manual, in-person process. Worth keeping in mind for GUI design so students with disabilities aren't worse off than under the old process. | NFR7 |
 
 **Not prioritised for this project:** Compatibility and portability (e.g. cross-platform/cross-browser support) are lower priority. This is a single-semester prototype for one Rec Centre, not a multi-platform product, so scope was kept to what's achievable.
+
+
+## Scope Changes Since Mid-Project Report
+
+- **FR9 implemented.** Added `BookingService.GenerateManagerReport()`, surfaced through a "Manager Report" button on StaffForm. The original requirement scoped this to "the current semester's active data," but the implementation reports on all data currently in the system instead. The prototype has no semester start/end date modelling anywhere in the domain layer, and adding that was judged out of scope given the time available. This is a deliberate simplification, not an oversight.
+- **FR8 GUI gap closed.** Overdue detection existed only as domain logic (`Booking.IsOverdue()`) at mid-project. It now has a GUI entry point via a "View Overdue Bookings" button on StaffForm.
