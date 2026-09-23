@@ -115,7 +115,7 @@
 | FR6 | Verified | TC20, TC21, TC22, TC23 | |
 | FR7 | Verified | TC24, TC25, TC26 | |
 | FR8 | Verified (domain logic); GUI verified manually | TC27, TC28, TC29, TC30, TC31 | The "View Overdue Bookings" button calls the same tested `GetOverdueBookings()` method with no independent logic, so it's confirmed by manual GUI check rather than a separate automated test |
-| FR9 | Verified, with documented scope change | TC32, TC33, TC34, TC35 | Implemented without semester-date scoping. See Scope Changes section above |
+| FR9 | Verified, with documented scope change | TC32, TC33, TC34, TC35, TC36 | Implemented without semester-date scoping. See Scope Changes section above |
 
 ### Non-Functional Requirements
 
