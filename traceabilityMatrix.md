@@ -58,3 +58,13 @@
 | TC29 | High | Active booking on its due date is not overdue | FR8 | A booking has Active status and a due date equal to the current date | Overdue status is checked | The booking is reported as not overdue |
 | TC30 | High | Completed booking is never overdue | FR8 | A booking has Completed status and a due date before the current date | Overdue status is checked | The booking is reported as not overdue |
 | TC31 | High | Cancelled booking is never overdue | FR8 | A booking has Cancelled status and a due date before the current date | Overdue status is checked | The booking is reported as not overdue |
+*Note: FR8's new GUI entry point (the "View Overdue Bookings" button) calls the same `GetOverdueBookings()` method already covered by TC27-31, with no additional logic of its own. It isn't given separate unit test cases for this reason, its correctness is manually verified in Task 4/7's GUI testing instead.*
+
+## Manager Reporting (FR9)
+
+| ID | Priority | Test Case | Requirement | Given (Starting State) | When (Action) | Then (Expected Result) |
+|---|---|---|---|---|---|---|
+| TC32 | Medium | Report totals bookings correctly per equipment item | FR9 | Multiple bookings exist across different equipment items | A manager report is generated | BookingsPerEquipment contains the correct booking count for each equipment item |
+| TC33 | Medium | Report reflects the current overdue count | FR9, FR8 | A mix of overdue and non-overdue bookings exist | A manager report is generated | OverdueBookingCount matches the number of bookings currently overdue |
+| TC34 | Medium | Report reflects the current damaged equipment count | FR9, FR7 | Some equipment items are marked damaged and some are not | A manager report is generated | DamagedEquipmentCount matches the number of equipment items currently marked damaged |
+| TC35 | Low | Report on an empty system returns zero/empty results | FR9 (edge case) | No bookings or equipment exist in the system | A manager report is generated | BookingsPerEquipment is empty and both counts are zero |

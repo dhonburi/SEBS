@@ -99,3 +99,37 @@
 
 - **FR9 implemented.** Added `BookingService.GenerateManagerReport()`, surfaced through a "Manager Report" button on StaffForm. The original requirement scoped this to "the current semester's active data," but the implementation reports on all data currently in the system instead. The prototype has no semester start/end date modelling anywhere in the domain layer, and adding that was judged out of scope given the time available. This is a deliberate simplification, not an oversight.
 - **FR8 GUI gap closed.** Overdue detection existed only as domain logic (`Booking.IsOverdue()`) at mid-project. It now has a GUI entry point via a "View Overdue Bookings" button on StaffForm.
+
+
+## Requirements Verification Summary
+
+### Functional Requirements
+
+| ID | Status | Evidence | Notes |
+|----|--------|----------|-------|
+| FR1 | Verified | TC01, TC02 | |
+| FR2 | Verified | TC03, TC04, TC05 | |
+| FR3 | Verified | TC06, TC07, TC08 | |
+| FR4 | Verified | TC11, TC12, TC13, TC14 | |
+| FR5 | Verified | TC15, TC16, TC17, TC18, TC19 | |
+| FR6 | Verified | TC20, TC21, TC22, TC23 | |
+| FR7 | Verified | TC24, TC25, TC26 | |
+| FR8 | Verified (domain logic); GUI verified manually | TC27, TC28, TC29, TC30, TC31 | The "View Overdue Bookings" button calls the same tested `GetOverdueBookings()` method with no independent logic, so it's confirmed by manual GUI check rather than a separate automated test |
+| FR9 | Verified, with documented scope change | TC32, TC33, TC34, TC35 | Implemented without semester-date scoping. See Scope Changes section above |
+
+### Non-Functional Requirements
+
+| ID | Status | Evidence | Notes |
+|----|--------|----------|-------|
+| NFR1 Usability | Unverified | - | Not yet tested; planned for Task 7 quality testing |
+| NFR2 Reliability | Verified | TC08 | Confirms available quantity never goes negative on repeated last-unit booking attempts |
+| NFR3 Data Integrity | Verified | TC03, TC06, TC11, TC20, TC24 | Equipment counts confirmed correct across create/cancel/check-in/damage/repair actions |
+| NFR4 Maintainability | Verified by design | Architecture review | SEBS.Core has no reference to SEBS.App; domain logic is reusable independent of the GUI |
+| NFR5 Security | Verified | TC16, TC21, TC26 | Invalid staff ID rejected on check-in, damaged check-in, and mark-repaired |
+| NFR6 Performance | Unverified | - | Not yet tested; planned for Task 7 quality testing |
+| NFR7 Accessibility | Unverified | - | Not yet tested; planned for Task 7 quality testing |
+
+### Out of Scope / Deferred
+
+- **Compatibility and portability** (cross-platform/cross-browser support): deliberately out of scope; this is a single-semester prototype for one Recreation Centre, not a multi-platform product (see Quality Attributes section above).
+- **FR9's semester-based data scoping**: deferred; the report currently covers all data in the system rather than being filtered to "current semester" (see Scope Changes section above).
