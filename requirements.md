@@ -125,11 +125,12 @@
 | NFR2 Reliability | Verified | TC08 | Confirms available quantity never goes negative on repeated last-unit booking attempts |
 | NFR3 Data Integrity | Verified | TC03, TC06, TC11, TC20, TC24 | Equipment counts confirmed correct across create/cancel/check-in/damage/repair actions |
 | NFR4 Maintainability | Verified by design | Architecture review | SEBS.Core has no reference to SEBS.App; domain logic is reusable independent of the GUI |
-| NFR5 Security | Verified | TC16, TC21, TC26 | Invalid staff ID rejected on check-in, damaged check-in, and mark-repaired |
+| NFR5 Security | Partially verified | TC16, TC21, TC26 | Staff actions (check-in, damaged check-in, mark-repaired) are rejected unless a registered staff ID is supplied. However, the prototype has no authentication: the Staff screen is open to anyone from the launcher, and any user who knows a valid staff ID can perform staff actions. The "authenticated" part of NFR5 is therefore not met. See Out of Scope / Deferred |
 | NFR6 Performance | Unverified | - | Not yet tested; planned for Task 7 quality testing |
 | NFR7 Accessibility | Unverified | - | Not yet tested; planned for Task 7 quality testing |
 
 ### Out of Scope / Deferred
 
 - **Compatibility and portability** (cross-platform/cross-browser support): deliberately out of scope; this is a single-semester prototype for one Recreation Centre, not a multi-platform product (see Quality Attributes section above).
+- **Staff authentication (NFR5)**: deferred; staff actions are gated by staff ID validation only, with no login or password. A production system would need proper authentication (e.g. staff login with passwords or university single sign-on) and role-based access to the Staff screen.
 - **FR9's semester-based data scoping**: deferred; the report currently covers all data in the system rather than being filtered to "current semester" (see Scope Changes section above).
