@@ -1,6 +1,8 @@
 <Solution>
   <Folder Name="/docs/">
+    <File Path="docs/Task2-Requirements-and-Quality-Analysis.md" />
     <File Path="requirements.md" />
+    <File Path="testExecutionResults.md" />
     <File Path="traceabilityMatrix.md" />
   </Folder>
   <Project Path="SEBS.App/SEBS.App.csproj" Id="2e82d56b-e5bf-4243-868d-8838988ebb27" />
