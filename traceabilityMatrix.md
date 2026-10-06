@@ -4,6 +4,7 @@
 |---|---|---|---|---|---|---|
 | TC01 | Medium | Get all equipment returns the seeded list | FR1 | Equipment has been added to the system | All equipment is requested | Every added item is returned |
 | TC02 | Low | Get all bookings returns all created bookings | FR1 (adjacent) | One or more bookings have been created | All bookings are requested | Every created booking is returned |
+| TC38 | Medium | Available equipment excludes damaged and fully reserved items | FR1 | One item with units available, one fully reserved, and one marked damaged | The available equipment list is requested | Only the item that is undamaged and has units available is returned |
 
 ## Booking Creation (FR2, FR3, NFR2, NFR3)
 
@@ -58,6 +59,7 @@
 | TC29 | High | Active booking on its due date is not overdue | FR8 | A booking has Active status and a due date equal to the current date | Overdue status is checked | The booking is reported as not overdue |
 | TC30 | High | Completed booking is never overdue | FR8 | A booking has Completed status and a due date before the current date | Overdue status is checked | The booking is reported as not overdue |
 | TC31 | High | Cancelled booking is never overdue | FR8 | A booking has Cancelled status and a due date before the current date | Overdue status is checked | The booking is reported as not overdue |
+| TC37 | High | Active booking on its due date is not overdue later in the day | FR8 | A booking has Active status and a due date at midnight, and the current time is later on the same day | Overdue status is checked | The booking is reported as not overdue (time of day is ignored) |
 
 *Note: FR8's new GUI entry point (the "View Overdue Bookings" button) calls the same `GetOverdueBookings()` method already covered by TC27-31, with no additional logic of its own. It isn't given separate unit test cases for this reason, its correctness is manually verified in Task 4/7's GUI testing instead.*
 

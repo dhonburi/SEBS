@@ -67,4 +67,33 @@ public class EquipmentBrowsingTests
         CollectionAssert.Contains(bookings, firstBooking);
         CollectionAssert.Contains(bookings, secondBooking);
     }
+
+    [TestMethod]
+    public void TC38_GetAvailableEquipment_ExcludesDamagedAndFullyReservedItems()
+    {
+        // Arrange
+        var service = new BookingService();
+        var student = new Student("S001", "Test Student", "student@aut.ac.nz");
+
+        var available = new Equipment("E001", "Basketball", "Balls", 2);
+        var fullyReserved = new Equipment("E002", "Volleyball", "Balls", 1);
+        var damaged = new Equipment("E003", "Badminton Racket", "Rackets", 3);
+
+        service.AddStudent(student);
+        service.AddEquipment(available);
+        service.AddEquipment(fullyReserved);
+        service.AddEquipment(damaged);
+
+        // Take the only unit of E002 and mark E003 as damaged
+        var bookingDate = new DateTime(2026, 8, 30);
+        service.CreateBooking("S001", "E002", bookingDate, bookingDate.AddDays(1), out _);
+        damaged.MarkAsDamaged();
+
+        // Act
+        var result = service.GetAvailableEquipment();
+
+        // Assert
+        Assert.HasCount(1, result);
+        CollectionAssert.Contains(result, available);
+    }
 }

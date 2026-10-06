@@ -2,7 +2,7 @@
 
 ## Automated Tests (Unit/Integration)
 
-36 MSTest test cases (TC01-TC36) covering SEBS.Core and SEBS.Services. Full requirement mapping is in traceabilityMatrix.md. All 36 tests currently pass, run through Visual Studio Test Explorer and also through the CI workflow (.github/workflows/ci.yml).
+38 MSTest test cases (TC01-TC38) covering SEBS.Core and SEBS.Services. Full requirement mapping is in traceabilityMatrix.md. All 38 tests currently pass, run through Visual Studio Test Explorer and also through the CI workflow (.github/workflows/ci.yml).
 
 ## Manual System/Acceptance Tests
 
@@ -23,15 +23,15 @@
 
 | Metric | Count |
 |--------|-------|
-| Planned | 46 |
-| Executed | 46 |
-| Passed | 46 |
+| Planned | 48 |
+| Executed | 48 |
+| Passed | 48 |
 | Failed | 0 |
 | Blocked | 0 |
 | Not Run | 0 |
 
-(46 = 36 automated MSTest cases + 10 manual system/acceptance tests)
+(48 = 38 automated MSTest cases + 10 manual system/acceptance tests)
 
 ## Regression Notes
 
-All 36 automated tests were re-run after the FR8 and FR9 work (overdue bookings view and manager report, including the equipment grouping fix) and all still pass. No existing functionality broke as a result of adding these features. Manual testing above confirms the same features work correctly end to end through the actual GUI, not just at the service layer.
+All 38 automated tests were re-run after the FR8 and FR9 work (overdue bookings view and manager report, including the equipment grouping fix) and all still pass. No existing functionality broke as a result of adding these features. Manual testing above confirms the same features work correctly end to end through the actual GUI, not just at the service layer.

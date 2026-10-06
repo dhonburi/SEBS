@@ -107,14 +107,14 @@
 
 | ID | Status | Evidence | Notes |
 |----|--------|----------|-------|
-| FR1 | Verified | TC01, TC02 | |
+| FR1 | Verified | TC01, TC02, TC38 | |
 | FR2 | Verified | TC03, TC04, TC05 | |
 | FR3 | Verified | TC06, TC07, TC08 | |
 | FR4 | Verified | TC11, TC12, TC13, TC14 | |
 | FR5 | Verified | TC15, TC16, TC17, TC18, TC19 | |
 | FR6 | Verified | TC20, TC21, TC22, TC23 | |
 | FR7 | Verified | TC24, TC25, TC26 | |
-| FR8 | Verified (domain logic); GUI verified manually | TC27, TC28, TC29, TC30, TC31 | The "View Overdue Bookings" button calls the same tested `GetOverdueBookings()` method with no independent logic, so it's confirmed by manual GUI check rather than a separate automated test |
+| FR8 | Verified (domain logic); GUI verified manually | TC27, TC28, TC29, TC30, TC31, TC37 | The "View Overdue Bookings" button calls the same tested `GetOverdueBookings()` method with no independent logic, so it's confirmed by manual GUI check rather than a separate automated test |
 | FR9 | Verified, with documented scope change | TC32, TC33, TC34, TC35, TC36 | Implemented without semester-date scoping. See Scope Changes section above |
 
 ### Non-Functional Requirements
