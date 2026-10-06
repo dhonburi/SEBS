@@ -63,7 +63,7 @@ namespace SEBS.Core
 
         public bool IsOverdue(DateTime currentDate)
         {
-            return Status == BookingStatus.Active && currentDate > DueDate;
+            return Status == BookingStatus.Active && currentDate.Date > DueDate.Date;
         }
     }
 }

@@ -95,6 +95,22 @@ public class OverdueDetectionTests
         Assert.HasCount(0, overdueBookings);
     }
 
+    [TestMethod]
+    public void TC37_ActiveBookingOnDueDate_IsNotOverdue_EvenLaterInTheDay()
+    {
+        // Arrange
+        var service = CreateService();
+        var dueDate = new DateTime(2026, 8, 30); // midnight, same as the GUI sends
+        CreateBooking(service, dueDate);
+
+        // Act 10am on the due date, like clicking the button with DateTime.Now
+        var overdueBookings =
+            service.GetOverdueBookings(new DateTime(2026, 8, 30, 10, 0, 0));
+
+        // Assert
+        Assert.HasCount(0, overdueBookings);
+    }
+
     private static BookingService CreateService()
     {
         var service = new BookingService();
