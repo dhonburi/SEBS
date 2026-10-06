@@ -15,8 +15,8 @@
 | MT05 | Acceptance | AC (Staff Check-In) | Check in an Active booking from StaffForm with a valid staff ID | Status becomes Completed, quantity released | Status changed to Completed, quantity released | Pass |
 | MT06 | Acceptance | AC (Staff Check-In) | Check in with an invalid or unknown staff ID | Rejected, booking stays Active | Rejected, booking remained Active | Pass |
 | MT07 | Acceptance | AC (Damage) | Check in a booking as damaged | Booking Completed, equipment shows damaged in the Equipment grid | Booking Completed, equipment flagged as damaged in grid | Pass |
-| MT08 | System | FR7 | Mark that damaged equipment as repaired from StaffForm | Damaged flag clears, item can be booked again | Damaged flag cleared, item available again | Pass |
-| MT09 | System | FR8 | Click "View Overdue Bookings" with an overdue booking present | Overdue booking(s) listed with correct student, equipment, and due date | Pass, verified 23/09 | Pass |
+| MT08 | System | FR7 | Mark that damaged equipment as repaired from StaffForm | Damaged flag clears, item can be booked again | Damaged flag cleared, item available again, verified 06/10 | Pass |
+| MT09 | System | FR8 | Click "View Overdue Bookings" with an overdue booking present | Overdue booking(s) listed with correct student, equipment, and due date | Pass, verified 06/10 | Pass |
 | MT10 | System | FR9 | Click "Manager Report" | Correct overdue count, damaged count, and per-equipment breakdown shown | Pass, verified 23/09 | Pass |
 
 ## Test Execution Summary
@@ -35,3 +35,4 @@
 ## Regression Notes
 
 All 39 automated tests were re-run after the FR8 and FR9 work (overdue bookings view and manager report, including the equipment grouping fix) and all still pass. No existing functionality broke as a result of adding these features. Manual testing above confirms the same features work correctly end to end through the actual GUI, not just at the service layer.
+TC37 and TC39 were added after two defects were found and fixed (overdue check ignoring time of day; mark-repaired succeeding on undamaged equipment). All 39 automated tests pass after the fixes
