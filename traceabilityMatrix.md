@@ -62,6 +62,7 @@
 | TC37 | High | Active booking on its due date is not overdue later in the day | FR8 | A booking has Active status and a due date at midnight, and the current time is later on the same day | Overdue status is checked | The booking is reported as not overdue (time of day is ignored) |
 
 *Note: FR8's new GUI entry point (the "View Overdue Bookings" button) calls the same `GetOverdueBookings()` method already covered by TC27-31, with no additional logic of its own. It isn't given separate unit test cases for this reason, its correctness is manually verified in Task 4/7's GUI testing instead.*
+*Note2: TC27, TC28 and TC29 are implemented as a single data-driven test method (`OverdueDetection_ActiveBooking_DueDateBoundaries`) with three data rows. Each row keeps its TC ID as its display name in Test Explorer.*
 
 ## Manager Reporting (FR9)
 

@@ -7,7 +7,10 @@ namespace SEBS.Tests;
 public class OverdueDetectionTests
 {
     [TestMethod]
-    public void TC27_ActiveBookingPastDueDate_IsOverdue()
+    [DataRow(1, true, DisplayName = "TC27_ActiveBookingPastDueDate_IsOverdue")]
+    [DataRow(-1, false, DisplayName = "TC28_ActiveBookingBeforeDueDate_IsNotOverdue")]
+    [DataRow(0, false, DisplayName = "TC29_ActiveBookingOnDueDate_IsNotOverdue")]
+    public void OverdueDetection_ActiveBooking_DueDateBoundaries(int daysAfterDueDate, bool expectedOverdue)
     {
         // Arrange
         var service = CreateService();
@@ -16,45 +19,10 @@ public class OverdueDetectionTests
 
         // Act
         var overdueBookings =
-            service.GetOverdueBookings(dueDate.AddDays(1));
+            service.GetOverdueBookings(dueDate.AddDays(daysAfterDueDate));
 
         // Assert
-        Assert.HasCount(1, overdueBookings);
-        CollectionAssert.Contains(overdueBookings, booking);
-    }
-
-    [TestMethod]
-    public void TC28_ActiveBookingBeforeDueDate_IsNotOverdue()
-    {
-        // Arrange
-        var service = CreateService();
-        var dueDate = new DateTime(2026, 8, 30);
-
-        CreateBooking(service, dueDate);
-
-        // Act
-        var overdueBookings =
-            service.GetOverdueBookings(dueDate.AddDays(-1));
-
-        // Assert
-        Assert.HasCount(0, overdueBookings);
-    }
-
-    [TestMethod]
-    public void TC29_ActiveBookingOnDueDate_IsNotOverdue()
-    {
-        // Arrange
-        var service = CreateService();
-        var dueDate = new DateTime(2026, 8, 30);
-
-        CreateBooking(service, dueDate);
-
-        // Act
-        var overdueBookings =
-            service.GetOverdueBookings(dueDate);
-
-        // Assert
-        Assert.HasCount(0, overdueBookings);
+        Assert.AreEqual(expectedOverdue, overdueBookings.Contains(booking));
     }
 
     [TestMethod]
