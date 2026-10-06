@@ -140,8 +140,11 @@ namespace SEBS.Services
             if (staff == null)
                 return ServiceResult.Fail("Staff member not found or not authorised.");
 
+            if (!equipment.IsDamaged)
+                return ServiceResult.Fail("Equipment is not marked as damaged.");
+
             staff.MarkEquipmentRepaired(equipment);
-            return ServiceResult.Ok($"Equipment {equipmentId} marked as repaired.");
+            return ServiceResult.Ok($"Equipment {equipment.EquipmentId} marked as repaired.");
         }
 
         // FR8: Query methods to look up bookings by status and overdue

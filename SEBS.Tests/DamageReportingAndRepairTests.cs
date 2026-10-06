@@ -124,6 +124,20 @@ public class DamageReportingAndRepairTests
         Assert.IsTrue(equipment.IsDamaged);
     }
 
+    [TestMethod]
+    public void TC39_MarkingUndamagedEquipmentAsRepaired_IsRejected()
+    {
+        // Arrange: equipment starts undamaged
+        var service = CreateService(out var equipment);
+
+        // Act
+        var result = service.MarkRepaired("E001", "ST001");
+
+        // Assert
+        Assert.IsFalse(result.Success);
+        Assert.AreEqual("Equipment is not marked as damaged.", result.Message);
+        Assert.IsFalse(equipment.IsDamaged);
+    }
     private static BookingService CreateService(out Equipment equipment)
     {
         var service = new BookingService();

@@ -49,6 +49,7 @@
 | TC24 | Medium | Marking equipment as repaired clears the damaged flag | FR7 | Equipment is marked as damaged | Staff mark it as repaired | The damaged flag is cleared to false |
 | TC25 | Medium | Marking unknown equipment as repaired is rejected | FR7 (data validity) | An equipment ID that does not exist | Mark-repaired is attempted | The request is rejected with an "equipment not found" message |
 | TC26 | Medium | Marking equipment as repaired with an invalid staff ID is rejected | FR7, NFR5 | A staff ID that does not match any registered staff member | Mark-repaired is attempted | The request is rejected |
+| TC39 | Medium | Marking undamaged equipment as repaired is rejected | FR7 | Equipment is not marked as damaged | Staff mark it as repaired | The request is rejected with an "Equipment is not marked as damaged" message and the flag stays false |
 
 ## Overdue Detection (FR8)
 
