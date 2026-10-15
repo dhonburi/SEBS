@@ -126,7 +126,7 @@
 | NFR3 Data Integrity | Verified | TC03, TC06, TC11, TC20, TC24 | Equipment counts confirmed correct across create/cancel/check-in/damage/repair actions |
 | NFR4 Maintainability | Verified by design | Architecture review | SEBS.Core has no reference to SEBS.App; domain logic is reusable independent of the GUI |
 | NFR5 Security | Partially verified | TC16, TC21, TC26 | Staff actions (check-in, damaged check-in, mark-repaired) are rejected unless a registered staff ID is supplied. However, the prototype has no authentication: the Staff screen is open to anyone from the launcher, and any user who knows a valid staff ID can perform staff actions. The "authenticated" part of NFR5 is therefore not met. See Out of Scope / Deferred |
-| NFR6 Performance | Unverified | - | Not yet tested; planned for Task 7 quality testing |
+| NFR6 Performance | Verified (service level) | TC40 | The availability query returned 1,000 items from a dataset of 1,000 equipment items and 5,000 bookings in under 1 ms. GUI rendering time was not measured. The data is held in memory, so this does not predict database performance |
 | NFR7 Accessibility | Unverified | - | Not yet tested; planned for Task 7 quality testing |
 
 ### Out of Scope / Deferred

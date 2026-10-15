@@ -1,10 +1,11 @@
-## Equipment Browsing (FR1)
+## Equipment Browsing (FR1, NFR6)
 
 | ID | Priority | Test Case | Requirement | Given (Starting State) | When (Action) | Then (Expected Result) |
 |---|---|---|---|---|---|---|
 | TC01 | Medium | Get all equipment returns the seeded list | FR1 | Equipment has been added to the system | All equipment is requested | Every added item is returned |
 | TC02 | Low | Get all bookings returns all created bookings | FR1 (adjacent) | One or more bookings have been created | All bookings are requested | Every created booking is returned |
 | TC38 | Medium | Available equipment excludes damaged and fully reserved items | FR1 | One item with units available, one fully reserved, and one marked damaged | The available equipment list is requested | Only the item that is undamaged and has units available is returned |
+| TC40 | Medium | Availability query completes within 2 seconds on a large dataset | NFR6 | 1,000 equipment items and 5,000 bookings exist, with every item still available | The available equipment list is requested | All 1,000 items are returned in under 2000 ms |
 
 ## Booking Creation (FR2, FR3, NFR2, NFR3)
 

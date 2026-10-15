@@ -1,5 +1,6 @@
 using SEBS.Core;
 using SEBS.Services;
+using System.Diagnostics;
 
 namespace SEBS.Tests;
 
@@ -95,5 +96,35 @@ public class EquipmentBrowsingTests
         // Assert
         Assert.HasCount(1, result);
         CollectionAssert.Contains(result, available);
+    }
+
+    [TestMethod]
+    public void TC40_AvailabilityQuery_WithLargeDataset_CompletesWithinTwoSeconds()
+    {
+        // Arrange - far larger than normal prototype load
+        var service = new BookingService();
+        service.AddStudent(new Student("S001", "Test Student", "student@aut.ac.nz"));
+
+        for (int i = 1; i <= 1000; i++)
+            service.AddEquipment(new Equipment($"E{i:D4}", $"Item {i}", "Balls", 10));
+
+        var bookingDate = new DateTime(2026, 8, 30);
+        for (int i = 0; i < 5000; i++)
+        {
+            var result = service.CreateBooking(
+                "S001", $"E{(i % 1000) + 1:D4}", bookingDate, bookingDate.AddDays(1), out _);
+            Assert.IsTrue(result.Success);
+        }
+
+        // Act
+        var stopwatch = Stopwatch.StartNew();
+        var available = service.GetAvailableEquipment();
+        stopwatch.Stop();
+        Console.WriteLine($"Availability query: {stopwatch.ElapsedMilliseconds} ms");
+
+        // Assert
+        Assert.HasCount(1000, available);
+        Assert.IsTrue(stopwatch.ElapsedMilliseconds < 2000,
+            $"Query took {stopwatch.ElapsedMilliseconds} ms");
     }
 }
