@@ -110,7 +110,7 @@
 | FR1 | Verified | TC01, TC02, TC38 | |
 | FR2 | Verified | TC03, TC04, TC05 | |
 | FR3 | Verified | TC06, TC07, TC08 | |
-| FR4 | Verified | TC11, TC12, TC13, TC14 | |
+| FR4 | Verified | TC11, TC12, TC13, TC14, TC41, TC42 | Students can only cancel their own bookings. The check compares the entered student ID with the booking's owner. It is not authentication, because a student could type another student's ID (see NFR5) |
 | FR5 | Verified | TC15, TC16, TC17, TC18, TC19 | |
 | FR6 | Verified | TC20, TC21, TC22, TC23 | |
 | FR7 | Verified | TC24, TC25, TC26, TC39 | |

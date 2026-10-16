@@ -28,6 +28,8 @@
 | TC12 | High | Cancelling a Completed booking is rejected | FR4 | A booking has Completed status | Cancellation is attempted | The request is rejected and the booking remains Completed |
 | TC13 | High | Cancelling an already-Cancelled booking is rejected | FR4 | A booking has Cancelled status | Cancellation is attempted again | The request is rejected and the booking remains Cancelled |
 | TC14 | Medium | Cancelling an unknown booking ID is rejected | FR4 (data validity) | A booking ID that does not exist | Cancellation is attempted | The request is rejected with a "booking not found" message |
+| TC41 | High | Cancelling another student's booking is rejected | FR4 (ownership) | An Active booking belongs to one student and a different student ID is supplied | Cancellation is attempted | The request is rejected with "You can only cancel your own bookings.", the booking stays Active and the equipment quantity is unchanged |
+| TC42 | Medium | A student can cancel their own booking | FR4 | An Active booking belongs to a student | The same student ID is supplied for cancellation | The booking becomes Cancelled and the equipment unit is released |
 
 ## Staff Check-In (FR5, NFR5)
 

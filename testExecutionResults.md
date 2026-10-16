@@ -2,7 +2,7 @@
 
 ## Automated Tests (Unit/Integration)
 
-40 MSTest test cases (TC01-TC40) covering SEBS.Core and SEBS.Services. Full requirement mapping is in traceabilityMatrix.md. All 40 tests currently pass, run through Visual Studio Test Explorer and also through the CI workflow (.github/workflows/ci.yml).
+42 MSTest test cases (TC01-TC42) covering SEBS.Core and SEBS.Services. Full requirement mapping is in traceabilityMatrix.md. All 42 tests currently pass, run through Visual Studio Test Explorer and also through the CI workflow (.github/workflows/ci.yml).
 
 ## Manual System/Acceptance Tests
 
@@ -11,7 +11,7 @@
 | MT01 | Acceptance | AC (Booking Creation) | Open StudentForm, browse equipment, book an available item with a due date after the booking date | Booking appears with Active status, available quantity drops by 1 in the grid | Booking created as expected, quantity updated in grid | Pass |
 | MT02 | Acceptance/Boundary | AC (Booking Creation) | Attempt a booking with due date equal to booking date | Booking is rejected, no quantity change | Rejected as expected, no change to quantity | Pass |
 | MT03 | System | FR3 | Attempt to book equipment with 0 available quantity | Booking rejected, UI shows the rejection message | Rejected, message shown correctly | Pass |
-| MT04 | Acceptance | AC (Cancellation) | Cancel an Active booking from StudentForm | Status becomes Cancelled, available quantity goes up by 1 | Status changed to Cancelled, quantity released | Pass |
+| MT04 | Acceptance | AC (Cancellation) | Cancel an Active booking from StudentForm | Status becomes Cancelled, available quantity goes up by 1 | Status changed to Cancelled, quantity released. Re-run after the ownership check, with the student ID entered | Pass |
 | MT05 | Acceptance | AC (Staff Check-In) | Check in an Active booking from StaffForm with a valid staff ID | Status becomes Completed, quantity released | Status changed to Completed, quantity released | Pass |
 | MT06 | Acceptance | AC (Staff Check-In) | Check in with an invalid or unknown staff ID | Rejected, booking stays Active | Rejected, booking remained Active | Pass |
 | MT07 | Acceptance | AC (Damage) | Check in a booking as damaged | Booking Completed, equipment shows damaged in the Equipment grid | Booking Completed, equipment flagged as damaged in grid | Pass |
@@ -23,17 +23,18 @@
 
 | Metric | Count |
 |--------|-------|
-| Planned | 50 |
-| Executed | 50 |
-| Passed | 50 |
+| Planned | 52 |
+| Executed | 52 |
+| Passed | 52 |
 | Failed | 0 |
 | Blocked | 0 |
 | Not Run | 0 |
 
-(50 = 40 automated MSTest cases + 10 manual system/acceptance tests)
+(52 = 42 automated MSTest cases + 10 manual system/acceptance tests)
 
 ## Regression Notes
 
 All automated tests were re-run after the FR8 and FR9 work (overdue bookings view and manager report, including the equipment grouping fix) and all still pass. No existing functionality broke as a result of adding these features. Manual testing above confirms the same features work correctly end to end through the actual GUI, not just at the service layer.
 TC37 and TC39 were added after two defects were found and fixed (overdue check ignoring time of day; mark-repaired succeeding on undamaged equipment). All automated tests pass after the fixes
 TC40 was added to verify the NFR6 performance requirement (availability query within 2 seconds). It passed on the first run, with the query completing in under 1 ms on a dataset of 1,000 equipment items and 5,000 bookings. All automated tests pass.
+TC41 and TC42 were added after a defect was found where any student could cancel another student's booking, because cancellation used only the booking ID. Cancellation now also requires the student ID and only succeeds for the booking's owner. All 42 automated tests pass.

@@ -101,14 +101,20 @@ namespace SEBS.App
 
         private void btnCancelBooking_Click(object sender, EventArgs e)
         {
-            var bookingId = GetSelectedBookingId(); if (bookingId == null) 
-            { 
-                lblStatus2.Text = "Select a booking first."; 
-                return; 
+            var bookingId = GetSelectedBookingId();
+            if (bookingId == null)
+            {
+                lblStatus2.Text = "Select a booking first.";
+                return;
             }
-            var result = _bookingService.CancelBooking(bookingId); 
-            lblStatus2.Text = result.Message; 
-            RefreshEquipmentGrid(); 
+            if (string.IsNullOrWhiteSpace(txtStudentId.Text))
+            {
+                lblStatus2.Text = "Enter your student ID.";
+                return;
+            }
+            var result = _bookingService.CancelBooking(bookingId, txtStudentId.Text.Trim());
+            lblStatus2.Text = result.Message;
+            RefreshEquipmentGrid();
             RefreshBookingsGrid();
         }
     }

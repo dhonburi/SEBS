@@ -85,6 +85,18 @@ namespace SEBS.Services
             }
         }
 
+        public ServiceResult CancelBooking(string bookingId, string studentId)
+        {
+            var booking = _bookings.FirstOrDefault(b => b.BookingId == bookingId);
+            if (booking == null)
+                return ServiceResult.Fail("Booking not found.");
+
+            if (booking.Student.StudentId != studentId)
+                return ServiceResult.Fail("You can only cancel your own bookings.");
+
+            return CancelBooking(bookingId);
+        }
+
         // FR5: Check in a booking as completed, Only staff can perform this action
         public ServiceResult CheckIn(string bookingId, string staffId)
         {

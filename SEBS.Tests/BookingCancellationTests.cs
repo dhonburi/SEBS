@@ -74,6 +74,40 @@ public class BookingCancellationTests
         Assert.HasCount(0, service.GetAllBookings());
     }
 
+    [TestMethod]
+    public void TC41_CancellingAnotherStudentsBooking_IsRejected()
+    {
+        // Arrange
+        var service = CreateService(out var equipment);
+        service.AddStudent(new Student("S002", "Other Student", "other@aut.ac.nz"));
+        var booking = CreateBooking(service); // booked by S001
+
+        // Act
+        var result = service.CancelBooking(booking.BookingId, "S002");
+
+        // Assert
+        Assert.IsFalse(result.Success);
+        Assert.AreEqual("You can only cancel your own bookings.", result.Message);
+        Assert.AreEqual(BookingStatus.Active, booking.Status);
+        Assert.AreEqual(0, equipment.AvailableQuantity);
+    }
+
+    [TestMethod]
+    public void TC42_StudentCancellingOwnBooking_Succeeds()
+    {
+        // Arrange
+        var service = CreateService(out var equipment);
+        var booking = CreateBooking(service);
+
+        // Act
+        var result = service.CancelBooking(booking.BookingId, "S001");
+
+        // Assert
+        Assert.IsTrue(result.Success);
+        Assert.AreEqual(BookingStatus.Cancelled, booking.Status);
+        Assert.AreEqual(1, equipment.AvailableQuantity);
+    }
+
     private static BookingService CreateService(out Equipment equipment)
     {
         var service = new BookingService();
