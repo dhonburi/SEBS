@@ -40,6 +40,29 @@ namespace SEBS.Services
 
         public List<Equipment> GetAllEquipment() => _equipment.ToList();
 
+        // FR1: Distinct equipment categories, sorted, for the student browse filter
+        public List<string> GetCategories() =>
+            _equipment.Select(e => e.Category)
+                .Where(c => !string.IsNullOrWhiteSpace(c))
+                .Distinct(StringComparer.OrdinalIgnoreCase)
+                .OrderBy(c => c, StringComparer.OrdinalIgnoreCase)
+                .ToList();
+
+        // FR1: Search/browse equipment by category and/or name. A null or blank filter matches everything.
+        // Unavailable and damaged items are still returned so students can see their current availability.
+        public List<Equipment> SearchEquipment(string? category, string? searchText)
+        {
+            var trimmedCategory = category?.Trim();
+            var trimmedSearch = searchText?.Trim();
+
+            return _equipment
+                .Where(e => string.IsNullOrEmpty(trimmedCategory) ||
+                            string.Equals(e.Category, trimmedCategory, StringComparison.OrdinalIgnoreCase))
+                .Where(e => string.IsNullOrEmpty(trimmedSearch) ||
+                            (e.Name?.Contains(trimmedSearch, StringComparison.OrdinalIgnoreCase) ?? false))
+                .ToList();
+        }
+
         // FR2, FR3: Create a booking if the equipment is available and the due date is after the booking date
         public ServiceResult CreateBooking(string studentId, string equipmentId, DateTime bookingDate, DateTime dueDate, out Booking? booking)
         {

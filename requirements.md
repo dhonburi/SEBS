@@ -107,7 +107,7 @@
 
 | ID | Status | Evidence | Notes |
 |----|--------|----------|-------|
-| FR1 | Verified | TC01, TC02 | |
+| FR1 | Verified | TC01, TC37, TC38, TC39, TC40, TC41, TC42 | Category filter and name search added to the service (`SearchEquipment`, `GetCategories`) and to StudentForm. TC02 was previously listed here but tests bookings, not equipment browsing |
 | FR2 | Verified | TC03, TC04, TC05 | |
 | FR3 | Verified | TC06, TC07, TC08 | |
 | FR4 | Verified | TC11, TC12, TC13, TC14 | |

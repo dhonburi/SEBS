@@ -4,6 +4,12 @@
 |---|---|---|---|---|---|---|
 | TC01 | Medium | Get all equipment returns the seeded list | FR1 | Equipment has been added to the system | All equipment is requested | Every added item is returned |
 | TC02 | Low | Get all bookings returns all created bookings | FR1 (adjacent) | One or more bookings have been created | All bookings are requested | Every created booking is returned |
+| TC37 | High | Search by category returns only that category | FR1 | Equipment exists across several categories | A student filters by one category | Only equipment in that category is returned |
+| TC38 | Medium | Name search is a case-insensitive partial match | FR1 | Equipment with names containing "Racket" exists | A student searches "  RACKET " | All items whose name contains "racket" are returned, ignoring case and surrounding spaces |
+| TC39 | Medium | Category and name filters combine | FR1 | Equipment exists across several categories | A student filters by category and searches by name | Only items matching both filters are returned |
+| TC40 | High | No filters returns all equipment, including unavailable items, with availability visible | FR1 | One item is marked damaged | A student browses with no filter | Every item is returned, and the damaged item reports as not available |
+| TC41 | Low | Search with no match returns an empty list | FR1 (edge case) | No equipment exists in the requested category | A student filters by that category | An empty list is returned |
+| TC42 | Medium | Category list is distinct and sorted | FR1 | Several items share categories | The category list is requested | Each category appears once, in alphabetical order |
 
 ## Booking Creation (FR2, FR3, NFR2, NFR3)
 

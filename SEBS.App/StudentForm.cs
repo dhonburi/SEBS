@@ -18,13 +18,39 @@ namespace SEBS.App
         {
             InitializeComponent();
             _bookingService = bookingService;
+            LoadCategories();
             RefreshEquipmentGrid();
             RefreshBookingsGrid();
         }
 
+        private const string AllCategories = "All categories";
+
+        // FR1: Fill the category filter with "All categories" followed by each category in the catalogue
+        private void LoadCategories()
+        {
+            cboCategory.Items.Clear();
+            cboCategory.Items.Add(AllCategories);
+            foreach (var category in _bookingService.GetCategories())
+                cboCategory.Items.Add(category);
+            cboCategory.SelectedIndex = 0;
+        }
+
+        // FR1: Show equipment matching the selected category and search text, including current availability
         private void RefreshEquipmentGrid()
         {
-            dgvEquipment.DataSource = _bookingService.GetAllEquipment();
+            var selected = cboCategory.SelectedItem as string;
+            var category = selected == AllCategories ? null : selected;
+            dgvEquipment.DataSource = _bookingService.SearchEquipment(category, txtSearch.Text);
+        }
+
+        private void cboCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            RefreshEquipmentGrid();
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            RefreshEquipmentGrid();
         }
 
         private void RefreshBookingsGrid()

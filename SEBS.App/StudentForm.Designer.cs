@@ -40,6 +40,10 @@
             lblStatus2 = new Label();
             btnCancelBooking = new Button();
             lblStatus = new Label();
+            lblCategory = new Label();
+            cboCategory = new ComboBox();
+            lblSearch = new Label();
+            txtSearch = new TextBox();
             ((System.ComponentModel.ISupportInitialize)dgvEquipment).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvMyBookings).BeginInit();
             SuspendLayout();
@@ -162,11 +166,51 @@
             lblStatus.Size = new Size(0, 20);
             lblStatus.TabIndex = 12;
             // 
+            // lblCategory
+            // 
+            lblCategory.AutoSize = true;
+            lblCategory.Location = new Point(140, 9);
+            lblCategory.Name = "lblCategory";
+            lblCategory.Size = new Size(72, 20);
+            lblCategory.TabIndex = 13;
+            lblCategory.Text = "Category:";
+            // 
+            // cboCategory
+            // 
+            cboCategory.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboCategory.FormattingEnabled = true;
+            cboCategory.Location = new Point(218, 5);
+            cboCategory.Name = "cboCategory";
+            cboCategory.Size = new Size(180, 28);
+            cboCategory.TabIndex = 14;
+            cboCategory.SelectedIndexChanged += cboCategory_SelectedIndexChanged;
+            // 
+            // lblSearch
+            // 
+            lblSearch.AutoSize = true;
+            lblSearch.Location = new Point(420, 9);
+            lblSearch.Name = "lblSearch";
+            lblSearch.Size = new Size(97, 20);
+            lblSearch.TabIndex = 15;
+            lblSearch.Text = "Search name:";
+            // 
+            // txtSearch
+            // 
+            txtSearch.Location = new Point(523, 5);
+            txtSearch.Name = "txtSearch";
+            txtSearch.Size = new Size(200, 27);
+            txtSearch.TabIndex = 16;
+            txtSearch.TextChanged += txtSearch_TextChanged;
+            // 
             // StudentForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(882, 653);
+            Controls.Add(txtSearch);
+            Controls.Add(lblSearch);
+            Controls.Add(cboCategory);
+            Controls.Add(lblCategory);
             Controls.Add(lblStatus);
             Controls.Add(btnCancelBooking);
             Controls.Add(lblStatus2);
@@ -202,5 +246,9 @@
         private Label lblStatus2;
         private Button btnCancelBooking;
         private Label lblStatus;
+        private Label lblCategory;
+        private ComboBox cboCategory;
+        private Label lblSearch;
+        private TextBox txtSearch;
     }
 }
