@@ -64,7 +64,8 @@
 
 | ID | Priority | Test Case | Requirement | Given (Starting State) | When (Action) | Then (Expected Result) |
 |---|---|---|---|---|---|---|
-| TC32 | Medium | Report totals bookings correctly per equipment item | FR9 | Multiple bookings exist across different equipment items | A manager report is generated | BookingsPerEquipment contains the correct booking count for each equipment item |
+| TC32 | Medium | Report totals bookings correctly per equipment item | FR9 | Multiple bookings exist across different equipment items | A manager report is generated | BookingsPerEquipment (keyed by EquipmentId) contains the correct booking count for each equipment item |
 | TC33 | Medium | Report reflects the current overdue count | FR9, FR8 | A mix of overdue and non-overdue bookings exist | A manager report is generated | OverdueBookingCount matches the number of bookings currently overdue |
 | TC34 | Medium | Report reflects the current damaged equipment count | FR9, FR7 | Some equipment items are marked damaged and some are not | A manager report is generated | DamagedEquipmentCount matches the number of equipment items currently marked damaged |
 | TC35 | Low | Report on an empty system returns zero/empty results | FR9 (edge case) | No bookings or equipment exist in the system | A manager report is generated | BookingsPerEquipment is empty and both counts are zero |
+| TC36 | High | Report counts same-named equipment items separately (regression) | FR9 (defect fix) | Two different equipment items share the same name and both have bookings | A manager report is generated | BookingsPerEquipment has a separate entry per EquipmentId with the correct count for each; the items are not merged |

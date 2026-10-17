@@ -22,8 +22,8 @@ public class ManagerReportingTests
         var report = service.GenerateManagerReport(dueDate.AddDays(-1));
 
         // Assert
-        Assert.AreEqual(2, report.BookingsPerEquipment["Basketball"]);
-        Assert.AreEqual(1, report.BookingsPerEquipment["Volleyball"]);
+        Assert.AreEqual(2, report.BookingsPerEquipment["E001"]);
+        Assert.AreEqual(1, report.BookingsPerEquipment["E002"]);
     }
 
     [TestMethod]
@@ -71,6 +71,26 @@ public class ManagerReportingTests
         Assert.HasCount(0, report.BookingsPerEquipment);
         Assert.AreEqual(0, report.OverdueBookingCount);
         Assert.AreEqual(0, report.DamagedEquipmentCount);
+    }
+
+    [TestMethod]
+    public void TC36_Report_CountsSameNamedEquipmentItemsSeparately()
+    {
+        // Arrange
+        var service = CreateServiceWithEquipment(out _, ("E001", "Basketball"), ("E002", "Basketball"));
+        var dueDate = new DateTime(2026, 8, 30);
+
+        CreateBooking(service, "E001", dueDate);
+        CreateBooking(service, "E001", dueDate);
+        CreateBooking(service, "E002", dueDate);
+
+        // Act
+        var report = service.GenerateManagerReport(dueDate.AddDays(-1));
+
+        // Assert
+        Assert.HasCount(2, report.BookingsPerEquipment);
+        Assert.AreEqual(2, report.BookingsPerEquipment["E001"]);
+        Assert.AreEqual(1, report.BookingsPerEquipment["E002"]);
     }
 
     private static BookingService CreateServiceWithEquipment(

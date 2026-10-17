@@ -129,7 +129,9 @@ namespace SEBS.App
         {
             var report = _bookingService.GenerateManagerReport(DateTime.Now);
 
-            var lines = report.BookingsPerEquipment.Select(kv => $"{kv.Key}: {kv.Value} booking(s)");
+            var equipmentNames = _bookingService.GetAllEquipment().ToDictionary(e => e.EquipmentId, e => e.Name);
+            var lines = report.BookingsPerEquipment.Select(kv =>
+                $"{kv.Key} - {equipmentNames.GetValueOrDefault(kv.Key, "Unknown")}: {kv.Value} booking(s)");
             var summary = $"Overdue bookings: {report.OverdueBookingCount}{Environment.NewLine}" +
                           $"Damaged equipment: {report.DamagedEquipmentCount}{Environment.NewLine}{Environment.NewLine}" +
                           $"Bookings per equipment:{Environment.NewLine}{string.Join(Environment.NewLine, lines)}";

@@ -151,10 +151,11 @@ namespace SEBS.Services
         public List<Booking> GetAllBookings() => _bookings.ToList();
 
         // FR9: Generate a manager report - total bookings per equipment item, current overdue count, and current damaged count.
+        // Grouped by EquipmentId rather than Name so that two different items sharing a name are counted separately.
         public ManagerReport GenerateManagerReport(DateTime currentDate)
         {
             var bookingsPerEquipment = _bookings
-                .GroupBy(b => b.Equipment.Name)
+                .GroupBy(b => b.Equipment.EquipmentId)
                 .ToDictionary(g => g.Key, g => g.Count());
 
             int overdueCount = GetOverdueBookings(currentDate).Count;

@@ -8,6 +8,7 @@ namespace SEBS.Core
     // how many bookings are currently overdue, and how many items are currently damaged.
     public class ManagerReport
     {
+        // Keyed by EquipmentId, value is the number of bookings made against that item.
         public Dictionary<string, int> BookingsPerEquipment { get; }
         public int OverdueBookingCount { get; }
         public int DamagedEquipmentCount { get; }
