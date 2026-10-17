@@ -98,6 +98,7 @@
 ## Scope Changes Since Mid-Project Report
 
 - **FR9 implemented.** Added `BookingService.GenerateManagerReport()`, surfaced through a "Manager Report" button on StaffForm. The original requirement scoped this to "the current semester's active data," but the implementation reports on all data currently in the system instead. The prototype has no semester start/end date modelling anywhere in the domain layer, and adding that was judged out of scope given the time available. This is a deliberate simplification, not an oversight.
+- **NFR5 staff authentication added.** Staff now sign in with a staff ID and a 4-8 digit PIN on a separate sign-in screen before StaffForm opens. This is a prototype-level login (in-memory staff list, no account lockout or PIN reset); a production system would use the university's single sign-on instead.
 - **FR8 GUI gap closed.** Overdue detection existed only as domain logic (`Booking.IsOverdue()`) at mid-project. It now has a GUI entry point via a "View Overdue Bookings" button on StaffForm.
 
 
@@ -125,7 +126,7 @@
 | NFR2 Reliability | Verified | TC08 | Confirms available quantity never goes negative on repeated last-unit booking attempts |
 | NFR3 Data Integrity | Verified | TC03, TC06, TC11, TC20, TC24 | Equipment counts confirmed correct across create/cancel/check-in/damage/repair actions |
 | NFR4 Maintainability | Verified by design | Architecture review | SEBS.Core has no reference to SEBS.App; domain logic is reusable independent of the GUI |
-| NFR5 Security | Verified | TC16, TC21, TC26 | Invalid staff ID rejected on check-in, damaged check-in, and mark-repaired |
+| NFR5 Security | Verified | TC16, TC21, TC26, TC43, TC44, TC45, TC46, TC47, TC48 | Staff must sign in with a staff ID and PIN before the staff screen opens. PINs are stored only as salted PBKDF2-SHA256 hashes and compared in constant time. Previously the staff screen accepted any registered staff ID typed into a text box with no authentication. Invalid staff IDs are still rejected at the service level on check-in, damaged check-in, and mark-repaired |
 | NFR6 Performance | Unverified | - | Not yet tested; planned for Task 7 quality testing |
 | NFR7 Accessibility | Unverified | - | Not yet tested; planned for Task 7 quality testing |
 

@@ -1,4 +1,4 @@
-using SEBS.Core;
+﻿using SEBS.Core;
 using SEBS.Services;
 
 namespace SEBS.App
@@ -25,7 +25,7 @@ namespace SEBS.App
             bookingService.AddStudent(new Student("23211534", "Dhon Lao", "dhonl@aut.ac.nz"));
             bookingService.AddStudent(new Student("23211535", "Bela Calma", "belac@aut.ac.nz"));
             bookingService.AddStudent(new Student("23211536", "Hansith Perera", "hansithp@aut.ac.nz"));
-            bookingService.AddStaffMember(new StaffMember("1", "Coach Dylan"));
+            bookingService.AddStaffMember(new StaffMember("1", "Coach Dylan", "1234"));
 
             Application.Run(new MainForm(bookingService));
         }

@@ -63,6 +63,17 @@ namespace SEBS.Services
                 .ToList();
         }
 
+        // NFR5: Authenticate a staff member by ID and PIN before any staff-only action is allowed.
+        // The same message is returned for an unknown ID and a wrong PIN so valid staff IDs can't be discovered.
+        public ServiceResult AuthenticateStaff(string staffId, string pin)
+        {
+            var staff = _staff.FirstOrDefault(s => s.StaffId == staffId?.Trim());
+            if (staff == null || !staff.VerifyPin(pin))
+                return ServiceResult.Fail("Invalid staff ID or PIN.");
+
+            return ServiceResult.Ok($"Signed in as {staff.Name}.");
+        }
+
         // FR2, FR3: Create a booking if the equipment is available and the due date is after the booking date
         public ServiceResult CreateBooking(string studentId, string equipmentId, DateTime bookingDate, DateTime dueDate, out Booking? booking)
         {

@@ -13,10 +13,18 @@ namespace SEBS.App
     public partial class StaffForm : Form
     {
         private readonly BookingService _bookingService;
-        public StaffForm(BookingService bookingService)
+        private readonly string _staffId;
+
+        // NFR5: Only opened after StaffLoginForm has authenticated the staff member, so the staff ID is fixed for the session
+        public StaffForm(BookingService bookingService, string staffId)
         {
             InitializeComponent();
             _bookingService = bookingService;
+            _staffId = staffId;
+
+            txtStaffId.Text = staffId;
+            txtStaffId.ReadOnly = true;
+            Text = $"SEBS Staff - signed in as {staffId}";
 
             RefreshBookingsGrid();
             RefreshEquipmentGrid();
@@ -60,12 +68,7 @@ namespace SEBS.App
                 lblCheckInStatus.Text = "Select a booking first.";
                 return;
             }
-            if (string.IsNullOrWhiteSpace(txtStaffId.Text))
-            {
-                lblCheckInStatus.Text = "Enter a staff ID.";
-                return;
-            }
-            var result = _bookingService.CheckIn(bookingId, txtStaffId.Text.Trim());
+            var result = _bookingService.CheckIn(bookingId, _staffId);
             lblCheckInStatus.Text = result.Message;
 
             RefreshBookingsGrid();
@@ -80,12 +83,7 @@ namespace SEBS.App
                 lblCheckInStatus.Text = "Select a booking first.";
                 return;
             }
-            if (string.IsNullOrWhiteSpace(txtStaffId.Text))
-            {
-                lblCheckInStatus.Text = "Enter a staff ID.";
-                return;
-            }
-            var result = _bookingService.CheckInDamaged(bookingId, txtStaffId.Text.Trim());
+            var result = _bookingService.CheckInDamaged(bookingId, _staffId);
             lblCheckInStatus.Text = result.Message;
 
             RefreshBookingsGrid();
@@ -100,12 +98,7 @@ namespace SEBS.App
                 lblMarkRepairedStatus.Text = "Select an equipment item first.";
                 return;
             }
-            if (string.IsNullOrWhiteSpace(txtStaffId.Text))
-            {
-                lblMarkRepairedStatus.Text = "Enter a staff ID.";
-                return;
-            }
-            var result = _bookingService.MarkRepaired(equipmentId, txtStaffId.Text.Trim());
+            var result = _bookingService.MarkRepaired(equipmentId, _staffId);
             lblMarkRepairedStatus.Text = result.Message;
 
             RefreshEquipmentGrid();

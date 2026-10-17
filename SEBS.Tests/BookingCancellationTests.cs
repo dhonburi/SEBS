@@ -1,4 +1,4 @@
-using SEBS.Core;
+﻿using SEBS.Core;
 using SEBS.Services;
 
 namespace SEBS.Tests;
@@ -29,7 +29,7 @@ public class BookingCancellationTests
         var service = CreateService(out var equipment);
         var booking = CreateBooking(service);
 
-        service.AddStaffMember(new StaffMember("ST001", "Test Staff"));
+        service.AddStaffMember(new StaffMember("ST001", "Test Staff", "1234"));
         service.CheckIn(booking.BookingId, "ST001");
 
         // Act

@@ -1,4 +1,4 @@
-using SEBS.Core;
+﻿using SEBS.Core;
 using SEBS.Services;
 
 namespace SEBS.Tests;
@@ -112,7 +112,8 @@ public class OverdueDetectionTests
 
         service.AddStaffMember(new StaffMember(
             "ST001",
-            "Test Staff"));
+            "Test Staff",
+            "1234"));
 
         return service;
     }

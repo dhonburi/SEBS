@@ -1,4 +1,4 @@
-using SEBS.Services;
+﻿using SEBS.Services;
 
 namespace SEBS.App
 {
@@ -16,9 +16,14 @@ namespace SEBS.App
             new StudentForm(_bookingService).ShowDialog();
         }
 
+        // NFR5: Staff must sign in with their staff ID and PIN before the staff screen opens
         private void btnStaff_Click(object sender, EventArgs e)
         {
-            new StaffForm(_bookingService).ShowDialog();
+            using var login = new StaffLoginForm(_bookingService);
+            if (login.ShowDialog() != DialogResult.OK || login.AuthenticatedStaffId == null)
+                return;
+
+            new StaffForm(_bookingService, login.AuthenticatedStaffId).ShowDialog();
         }
     }
 }

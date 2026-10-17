@@ -43,6 +43,19 @@
 | TC18 | High | Check-in on a Completed booking is rejected | FR5 | A booking has Completed status | Check-in is attempted again | The request is rejected and the booking remains Completed |
 | TC19 | High | Check-in on a Cancelled booking is rejected | FR5 | A booking has Cancelled status | Check-in is attempted | The request is rejected and the booking remains Cancelled |
 
+## Staff Authentication (NFR5)
+
+| ID | Priority | Test Case | Requirement | Given (Starting State) | When (Action) | Then (Expected Result) |
+|---|---|---|---|---|---|---|
+| TC43 | High | Valid staff ID and PIN authenticates | NFR5 | A staff member is registered with a PIN | They sign in with the correct staff ID and PIN | Sign-in succeeds |
+| TC44 | High | Wrong PIN is rejected | NFR5 | A staff member is registered with a PIN | They sign in with an incorrect PIN | Sign-in is rejected with "Invalid staff ID or PIN." |
+| TC45 | High | Unknown staff ID gives the same message as a wrong PIN | NFR5 | A staff ID that is not registered | Sign-in is attempted | Sign-in is rejected with the same message as a wrong PIN, so valid staff IDs cannot be discovered |
+| TC46 | High | Blank or near-miss PIN is rejected | NFR5 | A staff member is registered with a PIN | Sign-in is attempted with a null, empty, whitespace or one-digit-too-long PIN | Sign-in is rejected |
+| TC47 | High | PIN is stored as a salted hash, not plain text | NFR5 | Two staff members are created with the same PIN | Their stored credentials are compared | The stored hash is not the PIN, each has a different salt and hash, and both still verify with the correct PIN |
+| TC48 | Medium | Invalid PIN format is rejected when creating staff | NFR5 (data validity) | A PIN that is too short, too long, non-numeric or empty | A staff member is created with it | Creation is rejected with "PIN must be 4-8 digits." |
+
+*Note: StaffForm can only be opened through the new Staff Sign In screen, which calls the same `AuthenticateStaff()` method covered by TC43-48. The signed-in staff ID is then fixed for the session and used for every check-in, damage and repair action.*
+
 ## Damage Reporting & Repair (FR6, FR7)
 
 | ID | Priority | Test Case | Requirement | Given (Starting State) | When (Action) | Then (Expected Result) |

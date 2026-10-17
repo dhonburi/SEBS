@@ -1,4 +1,4 @@
-using SEBS.Core;
+﻿using SEBS.Core;
 using SEBS.Services;
 
 namespace SEBS.Tests;
@@ -141,7 +141,8 @@ public class DamageReportingAndRepairTests
 
         var staff = new StaffMember(
             "ST001",
-            "Test Staff");
+            "Test Staff",
+            "1234");
 
         service.AddStudent(student);
         service.AddEquipment(equipment);

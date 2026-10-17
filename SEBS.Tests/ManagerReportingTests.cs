@@ -106,7 +106,8 @@ public class ManagerReportingTests
 
         service.AddStaffMember(new StaffMember(
             "ST001",
-            "Test Staff"));
+            "Test Staff",
+            "1234"));
 
         equipmentList = new List<Equipment>();
         foreach (var (id, name) in equipmentItems)
