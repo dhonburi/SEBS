@@ -1,0 +1,122 @@
+# Continuous integration for SEBS.
+# Every push and every pull request into master builds the solution and runs the full MSTest suite,
+# so a change that breaks a requirement's test case is caught before it is merged.
+name: CI
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# A newer push to the same branch cancels the older run that is still in progress
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  DOTNET_NOLOGO: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+  DOTNET_VERSION: '10.0.x'
+
+jobs:
+  # Full solution, including the WinForms GUI, which only builds on Windows
+  build-and-test:
+    name: Build and test (Windows)
+    runs-on: windows-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v7
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Restore dependencies
+        run: dotnet restore SEBS.slnx
+
+      - name: Build solution
+        run: dotnet build SEBS.slnx --configuration Release --no-restore
+
+      - name: Run unit tests
+        run: >
+          dotnet test SEBS.Tests/SEBS.Tests.csproj
+          --configuration Release
+          --no-build
+          --logger "trx;LogFileName=test-results.trx"
+          --logger "console;verbosity=normal"
+          --results-directory TestResults
+
+      - name: Write test summary
+        if: always()
+        shell: pwsh
+        run: |
+          $trxPath = "TestResults/test-results.trx"
+          if (-not (Test-Path $trxPath)) {
+            "### Test results`n`nNo test results were produced (the build may have failed)." >> $env:GITHUB_STEP_SUMMARY
+            exit 0
+          }
+
+          [xml]$trx = Get-Content $trxPath
+          $counters = $trx.TestRun.ResultSummary.Counters
+          $summary = @(
+            "### Test results (Windows)"
+            ""
+            "| Total | Passed | Failed | Not run |"
+            "|---|---|---|---|"
+            "| $($counters.total) | $($counters.passed) | $($counters.failed) | $($counters.notExecuted) |"
+          )
+
+          $failed = $trx.TestRun.Results.UnitTestResult | Where-Object { $_.outcome -eq 'Failed' }
+          if ($failed) {
+            $summary += ""
+            $summary += "**Failed tests:**"
+            $summary += $failed | ForEach-Object { "- ``$($_.testName)``" }
+          }
+
+          $summary -join "`n" >> $env:GITHUB_STEP_SUMMARY
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: test-results-windows
+          path: TestResults/
+          if-no-files-found: warn
+
+  # SEBS.Core and SEBS.Services have no Windows dependency, so the test suite is also run on Linux
+  # to show the domain layer stays portable and decoupled from the GUI (NFR4)
+  test-linux:
+    name: Test domain and services (Linux)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v7
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Run unit tests
+        run: >
+          dotnet test SEBS.Tests/SEBS.Tests.csproj
+          --configuration Release
+          --logger "trx;LogFileName=test-results.trx"
+          --logger "console;verbosity=normal"
+          --results-directory TestResults
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: test-results-linux
+          path: TestResults/
+          if-no-files-found: warn
