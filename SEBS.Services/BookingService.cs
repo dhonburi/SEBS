@@ -29,10 +29,31 @@ namespace SEBS.Services
         private readonly List<StaffMember> _staff = new List<StaffMember>();
         private int _nextBookingNumber = 1;
 
-        // Setup methods to add initial data for testing purposes
-        public void AddEquipment(Equipment equipment) => _equipment.Add(equipment);
-        public void AddStudent(Student student) => _students.Add(student);
-        public void AddStaffMember(StaffMember staff) => _staff.Add(staff);
+        // Setup methods to add initial data for testing purposes.
+        // IDs must be unique: adding a second record with an existing ID throws and leaves the original untouched.
+        public void AddEquipment(Equipment equipment)
+        {
+            ArgumentNullException.ThrowIfNull(equipment);
+            if (_equipment.Any(e => e.EquipmentId == equipment.EquipmentId))
+                throw new InvalidOperationException($"Equipment ID {equipment.EquipmentId} already exists.");
+            _equipment.Add(equipment);
+        }
+
+        public void AddStudent(Student student)
+        {
+            ArgumentNullException.ThrowIfNull(student);
+            if (_students.Any(s => s.StudentId == student.StudentId))
+                throw new InvalidOperationException($"Student ID {student.StudentId} already exists.");
+            _students.Add(student);
+        }
+
+        public void AddStaffMember(StaffMember staff)
+        {
+            ArgumentNullException.ThrowIfNull(staff);
+            if (_staff.Any(s => s.StaffId == staff.StaffId))
+                throw new InvalidOperationException($"Staff ID {staff.StaffId} already exists.");
+            _staff.Add(staff);
+        }
 
         // FR1: Query methods to look up equipment and bookings
         public List<Equipment> GetAvailableEquipment() =>

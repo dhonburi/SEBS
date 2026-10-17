@@ -88,3 +88,12 @@
 | TC34 | Medium | Report reflects the current damaged equipment count | FR9, FR7 | Some equipment items are marked damaged and some are not | A manager report is generated | DamagedEquipmentCount matches the number of equipment items currently marked damaged |
 | TC35 | Low | Report on an empty system returns zero/empty results | FR9 (edge case) | No bookings or equipment exist in the system | A manager report is generated | BookingsPerEquipment is empty and both counts are zero |
 | TC36 | High | Report counts same-named equipment items separately (regression) | FR9 (defect fix) | Two different equipment items share the same name and both have bookings | A manager report is generated | BookingsPerEquipment has a separate entry per EquipmentId with the correct count for each; the items are not merged |
+
+## Unique IDs (Data Integrity, NFR3)
+
+| ID | Priority | Test Case | Requirement | Given (Starting State) | When (Action) | Then (Expected Result) |
+|---|---|---|---|---|---|---|
+| TC49 | High | Duplicate equipment ID is rejected | NFR3 (data validity) | Equipment E001 already exists | Another equipment item with ID E001 is added | The add is rejected with "Equipment ID E001 already exists." and the original item is kept |
+| TC50 | High | Duplicate student ID is rejected | NFR3 (data validity) | Student S001 already exists | Another student with ID S001 is added | The add is rejected and bookings for S001 still belong to the original student |
+| TC51 | High | Duplicate staff ID is rejected | NFR3, NFR5 | Staff ST001 already exists with a PIN | Another staff member with ID ST001 and a different PIN is added | The add is rejected; only the original PIN can sign in, so a duplicate record can't be used to take over a staff ID |
+| TC52 | Low | Null records are rejected | NFR3 (data validity) | An empty system | A null equipment item, student or staff member is added | The add is rejected with ArgumentNullException |
