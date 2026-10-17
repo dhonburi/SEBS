@@ -1,6 +1,5 @@
 <Solution>
   <Folder Name="/docs/">
-    <File Path="docs/Task2-Requirements-and-Quality-Analysis.md" />
     <File Path="requirements.md" />
     <File Path="testExecutionResults.md" />
     <File Path="traceabilityMatrix.md" />
